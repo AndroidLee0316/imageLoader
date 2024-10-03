@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+apply from: 'uploadArchives.gradle'
+
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+
+  publishNonDefault true
+
+  defaultConfig {
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    debug {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+  sourceSets {
+    main {
+      res.srcDirs += 'src/main/res-theme'
+    }
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+  api "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
+//  annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.glideVersion"
+  api "com.github.bumptech.glide:okhttp3-integration:$rootProject.ext.glideVersion"
+
+  //picasso
+  api 'com.squareup.picasso:picasso:2.71828'
+//  api 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+  // Stetho
+  debugApi "com.facebook.stetho:stetho:1.5.0"
+  api "com.facebook.stetho:stetho-okhttp3:1.5.0"
+  debugApi "com.facebook.stetho:stetho-js-rhino:1.5.0"
+
+}
